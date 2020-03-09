@@ -48,16 +48,20 @@ namespace Microsoft.Build.BackEnd.Components.ResourceManager
                 throw new InternalErrorException($"{nameof(ResourceManagerService)} was called while uninitialized");
             }
 
+            int i = 0;
+
             // Keep requesting cores until we can't anymore, or we've gotten the number of cores we wanted.
-            for (int i = 0; i < requestedCores; i++)
+            for (i = 0; i < requestedCores; i++)
             {
                 if (!s.WaitOne(0))
                 {
                     return i;
                 }
+
+                Console.WriteLine("Got a core");
             }
 
-            return 0;
+            return i;
         }
 
         public void ReleaseCores(int coresToRelease)
