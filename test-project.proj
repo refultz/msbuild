@@ -9,6 +9,6 @@
   <Target Name="X">
     <SemaphoreCPUTask />
     <Message Importance="High" Text="Middle" />
-    <SemaphoreCPUTask />
+    <!-- <SemaphoreCPUTask /> -->
   </Target>
 </Project>
