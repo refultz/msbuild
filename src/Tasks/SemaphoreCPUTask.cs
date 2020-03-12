@@ -27,25 +27,15 @@ namespace Microsoft.Build.Tasks
                 return !Log.HasLoggedErrors;
             }
 
-            BuildEngine7.ReleaseCores(50);
-            Log.LogMessageFromText($"Released ~50 cores  from {System.Diagnostics.Process.GetCurrentProcess().Id}", Framework.MessageImportance.High);
-
-            Log.LogMessageFromText($"Got {BuildEngine7.RequestCores(10)} cores  from {System.Diagnostics.Process.GetCurrentProcess().Id}", Framework.MessageImportance.High);
-
-            Thread.Sleep(TimeSpan.FromSeconds(5));
-
-            Log.LogMessageFromText($"Got {BuildEngine7.RequestCores(30)} cores  from {System.Diagnostics.Process.GetCurrentProcess().Id}", Framework.MessageImportance.High);
-
-            Thread.Sleep(TimeSpan.FromSeconds(5));
-
-            BuildEngine7.ReleaseCores(2);
-            Log.LogMessageFromText($"Released some number of cores from {System.Diagnostics.Process.GetCurrentProcess().Id}", Framework.MessageImportance.High);
-
-            Log.LogMessageFromText($"Got {BuildEngine7.RequestCores(12)} cores  from {System.Diagnostics.Process.GetCurrentProcess().Id}", Framework.MessageImportance.High);
+            for (int i = 0; i < 20; i++)
+            {
+                int v = BuildEngine7.RequestCores(9999);
+                Log.LogMessageFromText($"Got {v} cores  from {System.Diagnostics.Process.GetCurrentProcess().Id}", Framework.MessageImportance.High);
+                BuildEngine7.ReleaseCores(v + 20);
+                Thread.Sleep(TimeSpan.FromSeconds(0.9));
+            }
 
             return !Log.HasLoggedErrors;
         }
-
-
     }
 }
